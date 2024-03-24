@@ -31,7 +31,7 @@ config:
 uses: ByteBakersCo/babilema-action@v1
 with:
   github_token: ${{ secrets.GITHUB_TOKEN }}
-  github_repository: ${{ github.REPOSITORY }}
+  github_repository: ${{ github.repository }}
   commit_message: 'generate blog'
   config: 'path/to/config.toml'
 ```
