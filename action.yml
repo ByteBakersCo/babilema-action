@@ -1,0 +1,29 @@
+name: 'Babilema'
+author: 'ByteBakers'
+description: 'An action to statically generate a blog based on your GitHub issues'
+
+inputs:
+  commit_message:
+    description: 'The commit message to use when pushing the generated files'
+    required: false
+    default: 'ci: update blog'
+  config:
+    description: 'The path to the configuration file'
+    required: false
+    default: '' # Default is set in Babilema's source code
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.commit_message }}
+    - ${{ inputs.config }}
+  env:
+    INPUT_COMMIT_MESSAGE: ${{ inputs.commit_message }}
+    INPUT_CONFIG: ${{ inputs.config }}
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    GITHUB_REPOSITORY: ${{ github.REPOSITORY }}
+
+branding:
+  color: 'blue'
+  icon: 'edit'
