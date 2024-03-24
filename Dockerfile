@@ -12,8 +12,8 @@ RUN go test ./...
 
 RUN go build -v -o babilema cmd/babilema/main.go
 
-COPY generate.sh /generate.sh
+COPY generate.sh generate.sh
 
-RUN chmod +x /generate.sh
+RUN chmod +x generate.sh
 
-ENTRYPOINT ["/generate.sh"]
+ENTRYPOINT ["/babilema/generate.sh"]
