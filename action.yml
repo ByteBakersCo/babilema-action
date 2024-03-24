@@ -3,6 +3,12 @@ author: 'ByteBakers'
 description: 'An action to statically generate a blog based on your GitHub issues'
 
 inputs:
+  github_token:
+    description: 'GitHub token for authentication'
+    required: true
+  github_repository:
+    description: 'GitHub owner and repository name'
+    required: true
   commit_message:
     description: 'The commit message to use when pushing the generated files'
     required: false
@@ -21,8 +27,8 @@ runs:
   env:
     INPUT_COMMIT_MESSAGE: ${{ inputs.commit_message }}
     INPUT_CONFIG: ${{ inputs.config }}
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    GITHUB_REPOSITORY: ${{ github.REPOSITORY }}
+    GITHUB_TOKEN: ${{ inputs.github_token }}
+    GITHUB_REPOSITORY: ${{ inputs.github_repository }}
 
 branding:
   color: 'blue'

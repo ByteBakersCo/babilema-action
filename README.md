@@ -7,6 +7,14 @@ You can find more information about this project on [Babilema's GitHub repositor
 
 ### Inputs
 ```yaml
+github_token:
+  description: 'GitHub token for authentication'
+  required: true
+
+github_repository:
+  description: 'GitHub owner and repository name'
+  required: true
+
 commit_message:
   description: 'The commit message to use when pushing the generated files'
   required: false
@@ -22,6 +30,8 @@ config:
 ```yaml
 uses: ByteBakersCo/babilema-action@v1
 with:
+  github_token: ${{ secrets.GITHUB_TOKEN }}
+  github_repository: ${{ github.REPOSITORY }}
   commit_message: 'generate blog'
   config: 'path/to/config.toml'
 ```
