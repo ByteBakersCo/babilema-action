@@ -40,7 +40,7 @@ git config --global user.name "Babilema GH Action"
 git config --global user.email "action@github.com"
 git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-git checkout -b "$BRANCH" "origin/$BRANCH"
+git checkout -B "$BRANCH" "origin/$BRANCH"
 
 git add -A
 git commit -m "$COMMIT_MESSAGE"
