@@ -10,16 +10,14 @@ You can find more information about the actual static generator on [Babilema's G
 github_token:
   description: 'GitHub token for authentication'
   required: true
-
 commit_message:
   description: 'The commit message to use when pushing the generated files'
   required: false
   default: 'ci: update blog'
-
 config:
   description: 'The path to the configuration file'
   required: false
-  default: '' # Default is set in Babilema's source code
+  default: ${{ github.workspace }}/.babilema.toml
 ```
 
 ### Example usage
