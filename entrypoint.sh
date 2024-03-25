@@ -12,12 +12,14 @@ cd "$GITHUB_WORKSPACE"
 rm -rf "$GITHUB_WORKSPACE/tmp"
 
 $GITHUB_WORKSPACE/babilema --config "$CONFIG"
+rm "$GITHUB_WORKSPACE/babilema"
 
 git config --global user.name "Babilema GH Action"
 git config --global user.email "action@github.com"
 git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-git checkout $GITHUB_REF_NAME
+echo "Checking out $GITHUB_REF_NAME"
+git checkout "$GITHUB_REF_NAME" "remote/$GITHUB_REF_NAME"
 
 git add -A
 git commit -m "$COMMIT_MESSAGE"
