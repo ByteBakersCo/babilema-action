@@ -6,9 +6,6 @@ inputs:
   github_token:
     description: 'GitHub token for authentication'
     required: true
-  github_repository:
-    description: 'GitHub owner and repository name'
-    required: true
   commit_message:
     description: 'The commit message to use when pushing the generated files'
     required: false
@@ -16,16 +13,15 @@ inputs:
   config:
     description: 'The path to the configuration file'
     required: false
-    default: '' # Default is set in Babilema's source code
+    default: ${{ github.workspace }}/.babilema.toml
 
 runs:
   using: 'docker'
   image: 'Dockerfile'
   env:
-    INPUT_COMMIT_MESSAGE: ${{ inputs.commit_message }}
-    INPUT_CONFIG: ${{ inputs.config }}
+    COMMIT_MESSAGE: ${{ inputs.commit_message }}
+    CONFIG: ${{ inputs.config }}
     GITHUB_TOKEN: ${{ inputs.github_token }}
-    GITHUB_REPOSITORY: ${{ inputs.github_repository }}
 
 branding:
   color: 'blue'
