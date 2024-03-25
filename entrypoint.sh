@@ -18,7 +18,6 @@ EVENT_NAME=$(echo "$GITHUB_CONTEXT" | jq -r '.event_name')
 
 if [ "$EVENT_NAME" = "pull_request" ]; then
     BRANCH=$(echo "$GITHUB_CONTEXT" | jq -r '.head_ref')
-else
 fi
 
 if [ -z "$BRANCH" ]; then
