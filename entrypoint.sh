@@ -43,6 +43,7 @@ git remote set-url origin https://$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.gi
 
 git checkout -B "$BRANCH" "origin/$BRANCH"
 
+git pull
 git add -A
 git commit -m "$COMMIT_MESSAGE"
 git push 
