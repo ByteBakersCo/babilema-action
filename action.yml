@@ -28,6 +28,7 @@ runs:
     COMMIT_MESSAGE: ${{ inputs.commit_message }}
     CONFIG: ${{ inputs.config }}
     GITHUB_TOKEN: ${{ inputs.github_token }}
+    GITHUB_CONTEXT: ${{ toJson(inputs.github_context) }}
 
 branding:
   color: 'blue'
