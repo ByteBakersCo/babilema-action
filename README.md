@@ -1,7 +1,7 @@
 # babilema-action
-An action to statically generate a blog based on your GitHub issues
+An action to statically generate a blog based on your GitHub issues.
 
-You can find more information about this project on [Babilema's GitHub repository](https://github.com/ByteBakersCo/babilema).
+You can find more information about the actual static generator on [Babilema's GitHub repository](https://github.com/ByteBakersCo/babilema).
 
 ## Usage
 
@@ -9,10 +9,6 @@ You can find more information about this project on [Babilema's GitHub repositor
 ```yaml
 github_token:
   description: 'GitHub token for authentication'
-  required: true
-
-github_repository:
-  description: 'GitHub owner and repository name'
   required: true
 
 commit_message:
@@ -31,7 +27,6 @@ config:
 uses: ByteBakersCo/babilema-action@v1
 with:
   github_token: ${{ secrets.GITHUB_TOKEN }}
-  github_repository: ${{ github.repository }}
   commit_message: 'generate blog'
   config: 'path/to/config.toml'
 ```
