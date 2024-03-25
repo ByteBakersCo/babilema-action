@@ -17,6 +17,8 @@ git config --global user.name "Babilema GH Action"
 git config --global user.email "action@github.com"
 git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
+git checkout $GITHUB_REF_NAME
+
 git add -A
 git commit -m "$COMMIT_MESSAGE"
 git push https://$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
