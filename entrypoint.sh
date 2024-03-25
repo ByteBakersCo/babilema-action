@@ -3,35 +3,48 @@
 # Making sure that the script will exit if a command fails
 set -e
 
-IS_PULL_REQUEST=$(echo "$GITHUB_CONTEXT" | jq -e '.event.pull_request' > /dev/null && echo "true" || echo "false")
-
-if [  "$IS_PULL_REQUEST" = "true" ]; then
-    BRANCH=$(echo "$GITHUB_CONTEXT" | jq -r '.event.pull_request.head.ref')
-else
-    BRANCH=$(echo "$GITHUB_CONTEXT" | jq -r '.ref' | jq -R -r 'split("/") | last')
+if [ -z "$GITHUB_CONTEXT" ]; then
+    echo "GITHUB_CONTEXT is not set."
+    exit 1
 fi
 
-echo $BRANCH
+if [ -z "$GITHUB_TOKEN" ]; then
+    echo "GITHUB_TOKEN is not set."
+    exit 1
+fi
 
-# git clone https://github.com/ByteBakersCo/babilema.git tmp
-# cd tmp
-# ./build.sh
+BRANCH=$(echo "$GITHUB_CONTEXT" | jq -r '.ref' | jq -R -r 'split("/") | last')
+EVENT_NAME=$(echo "$GITHUB_CONTEXT" | jq -r '.event_name')
 
-# mv babilema "$GITHUB_WORKSPACE/"
-# cd "$GITHUB_WORKSPACE"
-# rm -rf "$GITHUB_WORKSPACE/tmp"
+if [ "$EVENT_NAME" = "pull_request" ]; then
+    BRANCH=$(echo "$GITHUB_CONTEXT" | jq -r '.head_ref')
+else
+fi
 
-# $GITHUB_WORKSPACE/babilema --config "$CONFIG"
-# rm "$GITHUB_WORKSPACE/babilema"
+if [ -z "$BRANCH" ]; then
+    echo "Could not determine the branch."
+    exit 1
+fi
 
-# git config --global user.name "Babilema GH Action"
-# git config --global user.email "action@github.com"
-# git config --global --add safe.directory "$GITHUB_WORKSPACE"
+git clone https://github.com/ByteBakersCo/babilema.git tmp
+cd tmp
+./build.sh
 
-# git checkout -b "$BRANCH"
+mv babilema "$GITHUB_WORKSPACE/"
+cd "$GITHUB_WORKSPACE"
+rm -rf "$GITHUB_WORKSPACE/tmp"
 
-# git add -A
-# git commit -m "$COMMIT_MESSAGE"
-# git push https://$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
+$GITHUB_WORKSPACE/babilema --config "$CONFIG"
+rm "$GITHUB_WORKSPACE/babilema"
 
-echo "Successfully pushed generated files to $GITHUB_REPOSITORY"
+git config --global user.name "Babilema GH Action"
+git config --global user.email "action@github.com"
+git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+git checkout -b "$BRANCH"
+
+git add -A
+git commit -m "$COMMIT_MESSAGE"
+git push https://$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
+
+echo "Successfully pushed generated files to $GITHUB_REPOSITORY on branch $BRANCH."
