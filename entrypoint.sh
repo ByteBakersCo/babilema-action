@@ -36,16 +36,4 @@ rm -rf "$GITHUB_WORKSPACE/tmp"
 $GITHUB_WORKSPACE/babilema --config "$CONFIG"
 rm "$GITHUB_WORKSPACE/babilema"
 
-git config --global user.name "Babilema GH Action"
-git config --global user.email "action@github.com"
-git config --global --add safe.directory "$GITHUB_WORKSPACE"
-git remote set-url origin https://$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
-
-git checkout -B "$BRANCH" "origin/$BRANCH"
-
-git pull
-git add -A
-git commit -m "$COMMIT_MESSAGE"
-git push 
-
-echo "Successfully pushed generated files to $GITHUB_REPOSITORY on branch $BRANCH."
+echo "Exiting action..."
