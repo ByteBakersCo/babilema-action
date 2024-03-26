@@ -10,17 +10,17 @@ inputs:
   config:
     description: 'The path to the configuration file'
     required: false
-    default: ${{ github.workspace }}/.babilema.toml
+    default: "${{ github.workspace }}/.babilema.toml"
 
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
   - '--volume'
-  - ${{ github.workspace }}:${{ github.workspace }}
+  - "${{ github.workspace }}:${{ github.workspace }}"
   env:
-    CONFIG: ${{ inputs.config }}
-    GITHUB_TOKEN: ${{ inputs.github_token }}
+    CONFIG: "${{ inputs.config }}"
+    GITHUB_TOKEN: "${{ inputs.github_token }}"
 
 branding:
   color: 'blue'
