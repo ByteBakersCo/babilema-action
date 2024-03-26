@@ -17,8 +17,8 @@ runs:
   image: 'Dockerfile'
   args:
   - '--mount'
-  - 'type=volume,source="test",target="test"'
-  # - 'type=volume,source="${{ github.workspace }}",target="${{ github.workspace }}"'
+  - 'type=volume'
+
   env:
     CONFIG: '${{ inputs.config }}'
     GITHUB_TOKEN: '${{ inputs.github_token }}'
