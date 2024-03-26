@@ -1,0 +1,22 @@
+name: Test
+on: pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 'Check out code'
+      uses: actions/checkout@v4
+
+    - name: 'Generate blog'
+      uses: ./ 
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_context: ${{ toJson(github) }}
+
+    - name: 'Auto committing generated files'
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "ci: auto commit generated files"
+        branch: ${{ github.head_ref }}
