@@ -24,6 +24,9 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+  - '--volume'
+  - '${{ github.workspace }}:${{ github.workspace }}'
   env:
     COMMIT_MESSAGE: ${{ inputs.commit_message }}
     CONFIG: ${{ inputs.config }}
