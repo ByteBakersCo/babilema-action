@@ -7,15 +7,6 @@ inputs:
     description: 'GitHub token for authentication'
     required: true
 
-  github_context:
-    description: 'GitHub context'
-    required: true
-
-  commit_message:
-    description: 'The commit message to use when pushing the generated files'
-    required: false
-    default: 'ci: update blog'
-
   config:
     description: 'The path to the configuration file'
     required: false
@@ -28,10 +19,8 @@ runs:
   - '--volume'
   - '${{ github.workspace }}:${{ github.workspace }}'
   env:
-    COMMIT_MESSAGE: ${{ inputs.commit_message }}
     CONFIG: ${{ inputs.config }}
     GITHUB_TOKEN: ${{ inputs.github_token }}
-    GITHUB_CONTEXT: ${{ inputs.github_context }}
 
 branding:
   color: 'blue'
